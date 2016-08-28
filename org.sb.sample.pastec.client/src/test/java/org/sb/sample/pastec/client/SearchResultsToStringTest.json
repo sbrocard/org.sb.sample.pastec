@@ -1,0 +1,11 @@
+{ "search_results":
+	{
+		"image_ids": [1,1234], 
+		"bounding_rects": [
+			{"height":447,"width":318,"x":38,"y":97},
+			{"height":447,"width":318,"x":38,"y":97}],
+		"scores":[821.0,821.0],
+		"tags":["",""],
+		"type":"SEARCH_RESULTS"
+	}
+}
