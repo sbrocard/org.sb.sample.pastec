@@ -29,7 +29,7 @@ public class SearchResultsTest {
 			// Set it to true if you need to include the JSON root element in the
 			// JSON input
 			unmarshaller
-			.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, true);
+			.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, false);
 			// Create the StreamSource by creating StringReader using the JSON input
 			InputStream inputstream = SearchResults.class.getResourceAsStream("SearchResultsToStringTest.json");
 			StreamSource json = new StreamSource(inputstream);
