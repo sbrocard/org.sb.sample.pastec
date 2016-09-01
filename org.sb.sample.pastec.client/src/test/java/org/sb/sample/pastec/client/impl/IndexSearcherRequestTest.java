@@ -1,6 +1,7 @@
 package org.sb.sample.pastec.client.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,23 +10,20 @@ import java.net.URISyntaxException;
 
 import org.junit.Test;
 import org.sb.sample.pastec.client.SearchResults;
-import org.sb.sample.pastec.client.impl.IndexSearcherRequest;
-import org.sb.sample.pastec.client.impl.PastecService;
 
+/**
+ * 
+ * TODO sb, write a unit tests with a Mock for pastec server
+ * TODO sb, move the existing test in a integration like test
+ * @author sbrocard
+ *
+ */
 public class IndexSearcherRequestTest {
 
-	private File f= new File("/home/moi/Project/vagrant/vagrant-pastec/tests/mona-lisa.jpg");
-
-	@Test
-	public void testSearchIndexPost() {
-		try {
-			URI uri = new URI("http://localhost:4212/index/searcher");
-			IndexSearcherRequest indexSearcher = new IndexSearcherRequest(uri);
-			indexSearcher.searchIndexPost(f= new File("/home/moi/Project/vagrant/vagrant-pastec/tests/mona-lisa.jpg"));
-		} catch (IOException | URISyntaxException e) {
-			fail(e.getMessage());
-		}
-	}
+	/**
+	 * TODO sb, do not use a local file
+	 */
+	private File f = new File("/home/moi/Project/vagrant/vagrant-pastec/tests/mona-lisa.jpg");
 
 	@Test
 	public void testSearchIndexPostJson() {
