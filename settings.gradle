@@ -1,3 +1,4 @@
 // To declare projects as part of a multi-project build use the 'include' method
 include 'org.sb.sample.pastec.client'
 include 'org.sb.sample.pastec.webapp'
+include 'org.sb.sample.image.client'

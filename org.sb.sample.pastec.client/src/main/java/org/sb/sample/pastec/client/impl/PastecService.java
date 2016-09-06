@@ -2,6 +2,7 @@ package org.sb.sample.pastec.client.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 import org.sb.sample.pastec.client.IPastecService;
@@ -21,4 +22,9 @@ public class PastecService implements IPastecService {
 		return indexSearcher.searchIndexPostJson(f);
 	}
 
+	@Override
+	public SearchResults searchIndexPostJson(InputStream input) throws IOException {
+		IndexSearcherRequest indexSearcher = new IndexSearcherRequest(uri);
+		return indexSearcher.searchIndexPostJson(input);
+	}
 }
