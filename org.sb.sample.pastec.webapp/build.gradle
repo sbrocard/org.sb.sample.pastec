@@ -4,7 +4,6 @@ apply plugin: 'jetty'
 
 repositories {
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
@@ -26,7 +25,8 @@ dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2', ext: 'jar', transitive: true
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2', ext: 'jar', transitive: true
     
-    compile group: 'org.sb.sample.pastec', name: 'org.sb.sample.pastec.client', version: '1.0', transitive: true
+    //compile group: 'org.sb.sample.pastec', name: 'org.sb.sample.pastec.client', version: '1.0', transitive: true
+    compile project(':org.sb.sample.pastec.client')
 }
 
 war {

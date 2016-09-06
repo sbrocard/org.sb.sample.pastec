@@ -32,7 +32,7 @@ public class IndexSearcherRequestTest {
 			PastecService pastecService = new PastecService(uri);
 		    SearchResults searchResults = pastecService.searchIndexPostJson(f);
 		    System.out.println(searchResults);
-		    assertEquals("SearchResults [boundingRects=[BoundingRect [x=38, y=97, height=447, widht=0], BoundingRect [x=38, y=97, height=447, widht=0]], imageIds=[1, 1234], scores=[821.0, 821.0], tags=[, ]]",  searchResults.toString());
+		    assertEquals("SearchResults [boundingRects=[BoundingRect [x=38, y=97, height=447, widht=0]], imageIds=[1], scores=[821.0], tags=[]]",  searchResults.toString());
 		} catch (IOException | URISyntaxException e) {
 			fail(e.getMessage());
 		}

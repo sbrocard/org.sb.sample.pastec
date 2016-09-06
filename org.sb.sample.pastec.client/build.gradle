@@ -33,25 +33,3 @@ dependencies {
     // 'test.useTestNG()' to your build script.
     testCompile 'junit:junit:4.12'
 }
-
-apply plugin: 'java'
-apply plugin: 'maven-publish'
-
-group = 'org.sb.sample.pastec'
-version = '1.0'
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-publishing {
-    repositories {
-        maven {
-            // change to point to your repo, e.g. http://my.org/repo
-            url "$buildDir/repo"
-        }
-    }
-}
