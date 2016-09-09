@@ -5,7 +5,6 @@ import java.io.InputStream;
 import java.util.Collections;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -36,13 +35,14 @@ public class PastecServiceRest
 	@Path("/content")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.TEXT_PLAIN)
+//	@Consumes(MediaType.TEXT_PLAIN)
+//	@Consumes(MediaType.APPLICATION_OCTET_STREAM)
 	public ImageContentData searchContentData(InputStream uploadedInputStream) throws IOException {
 	    SearchResults searchResults = pastecService.searchIndexPostJson(uploadedInputStream);
 	    System.out.println(searchResults);
 	    
 	    ImageContentData contentData = null;
-	    if (searchResults.getScores().size() > 0 && searchResults.getScores().get(0) > MINIMUM_SCORE) {
+	    if (searchResults.getScores() != null && searchResults.getScores().size() > 0 && searchResults.getScores().get(0) > MINIMUM_SCORE) {
 		    String imageId = searchResults.getImage_ids().get(0);
 		    contentData = imageService.findContentData(imageId);
 	    }

@@ -17,6 +17,8 @@ import org.sb.sample.pastec.client.rest.ClientBuilderInstance;
 public class IndexSearcherRequest {
 
 	
+	private static final String INDEX_SEARCHER = "index/searcher";
+	
 	private final URI uri;
 
 	public IndexSearcherRequest(URI uri) {
@@ -76,7 +78,7 @@ public class IndexSearcherRequest {
 		
 	    final WebTarget target = client.target(uri);
 	
-	    SearchResults searchResults = target.request(MediaType.APPLICATION_JSON_TYPE)
+	    SearchResults searchResults = target.path(INDEX_SEARCHER).request(MediaType.APPLICATION_JSON_TYPE)
 	    		.post(Entity.entity(input, MediaType.TEXT_PLAIN_TYPE), SearchResults.class);
 	    return searchResults;
 	}

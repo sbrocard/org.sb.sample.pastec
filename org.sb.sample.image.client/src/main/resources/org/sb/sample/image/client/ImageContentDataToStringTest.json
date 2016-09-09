@@ -1,0 +1,28 @@
+{ 
+	"lks": [
+		{
+		 	"lbs":[ 
+					{ "lg":"EN", "l":"Interview" },
+					{ "lg":"FR", "l":"Entretien" }
+			],
+			"lk":"http://the_url_of_interview_video_to display", 
+			"t":2
+		},
+		{
+			"lbs":[
+					{"lg":"EN","l":"Documentary"},
+					{"lg":"FR","l":"Documentaire"}
+			],
+			"lk":"http://the_url_of_documentary_video_to display", 
+			"t":2
+		},
+		{
+			"lbs":[
+					{"lg":"EN","l":"Information"},
+					{"lg":"FR","l":"Informations"}
+			],
+			"lk":"http://the_url_the_web_page_to display", 
+			"t":1
+		}
+	]
+}

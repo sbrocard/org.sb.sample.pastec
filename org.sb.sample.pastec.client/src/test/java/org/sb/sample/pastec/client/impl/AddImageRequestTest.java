@@ -22,10 +22,11 @@ import org.sb.sample.pastec.client.SearchResults;
  * @author sbrocard
  *
  */
-public class IndexSearcherRequestTest extends JerseyTest {
+public class AddImageRequestTest extends JerseyTest {
 
+	private static final String ID_1 = "1";
 	private static final String HTTP_LOCALHOST_4212 = "http://localhost:4212/";
-	private static final String EXPECTED_RESULT = "SearchResults [boundingRects=[BoundingRect [x=38, y=97, height=447, widht=0]], imageIds=[1], scores=[821.0], tags=[]]";
+	private static final String EXPECTED_RESULT = "ImageAdded [image_id=1, type=IMAGE_ADDED]";
 	private static final String MONA_LISA_JPG = "mona-lisa.jpg";
 
 
@@ -40,31 +41,34 @@ public class IndexSearcherRequestTest extends JerseyTest {
 	 * This can be used for integration tests
 	 */
 //	@Test
-	public void testSearchIndexPostJsonWithRealPastecService() {
+	public void testAddImageWithRealPastecService() {
 		try {
 			URI uri = new URI(HTTP_LOCALHOST_4212); 
-			callIndexSearchImpl(uri);
+			callAddImageImpl(uri);
 		} catch (IOException | URISyntaxException e) {
 			fail(e.getMessage());
 		}
 	}
 	
 	@Test
-	public void testSearchIndexPostJson() {
+	public void testAddImage() {
 		try {
 			URI uri = getBaseUri();
-			callIndexSearchImpl(uri);
+			callAddImageImpl(uri);
 		} catch (IOException e) {
 			fail(e.getMessage());
 		}
 	}
 
-	private void callIndexSearchImpl(URI uri) throws IOException {
-		InputStream inputstream = IndexSearcherRequestTest.class.getResourceAsStream(MONA_LISA_JPG);
+	private void callAddImageImpl(URI uri) throws IOException {
+		InputStream inputstream = AddImageRequestTest.class.getResourceAsStream(MONA_LISA_JPG);
 
 		PastecService pastecService = new PastecService(uri);
-		SearchResults searchResults = pastecService.searchIndexPostJson(inputstream);
-		assertEquals(EXPECTED_RESULT,  searchResults.toString());
+		pastecService.addImage(ID_1, inputstream).subscribe(imageAdded -> {
+			assertEquals(EXPECTED_RESULT, imageAdded.toString());
+			assertEquals(ID_1, imageAdded.image_id);
+			assertEquals("IMAGE_ADDED", imageAdded.type);
+		});
 	}
 
 }

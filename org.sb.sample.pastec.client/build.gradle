@@ -24,6 +24,7 @@ dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2', ext: 'jar', transitive: true
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2', ext: 'jar', transitive: true
 
+    compile 'io.reactivex:rxjava:1.1.10'
    // testRuntime group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.11<', ext: 'jar', transitive: true
 
 

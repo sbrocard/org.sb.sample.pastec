@@ -1,6 +1,5 @@
 package org.sb.sample.image.client;
 
-import java.util.Collections;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlRootElement;

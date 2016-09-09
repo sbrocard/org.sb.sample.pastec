@@ -23,11 +23,12 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.21'
     
     // TODO sb, we could use another dependency, not necessarely jersey. Used to test the json serialisation 
-    testCompile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2', ext: 'jar', transitive: true
-    
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2', ext: 'jar', transitive: true
     //compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
     //compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.moxy', version: '2.6.0', ext: 'jar'
     //compile group: 'org.eclipse.persistence', name: 'org.eclipse.persistence.core', version: '2.6.0', ext: 'jar'
+    
+    compile 'io.reactivex:rxjava:1.1.10'
     
     testCompile 'junit:junit:4.12'
     

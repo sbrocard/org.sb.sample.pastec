@@ -81,7 +81,7 @@ public class PastecServiceRestTest extends JerseyTest {
 		callCheckEmpty(pastecService, new ImageServiceMock());
 	}
 
-	private <T> ImageContentData searchContentDataImpl(URI uri, T input) throws IOException {
+	private static <T> ImageContentData searchContentDataImpl(URI uri, T input) throws IOException {
 		assertNotNull(input);
 		final Client client = ClientBuilderInstance.INSTANCE.build();
 		
@@ -90,5 +90,18 @@ public class PastecServiceRestTest extends JerseyTest {
 	    ImageContentData searchResults = target.request(MediaType.APPLICATION_JSON_TYPE)
 	    		.post(Entity.entity(input, MediaType.TEXT_PLAIN_TYPE), ImageContentData.class);
 	    return searchResults;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			URI uri = new URI("http://localhost:8090/org.sb.sample.pastec.webapp/rest/" + INDEX_SEARCHER);
+			InputStream inputstream = PastecServiceRestTest.class.getResourceAsStream(MONA_LISA_JPG);
+			ImageContentData contentData = searchContentDataImpl(uri, inputstream);
+
+			System.out.println(contentData);
+//			assertEquals(1, contentData.lks.size());
+		} catch (IOException | URISyntaxException e) {
+			fail(e.getMessage());
+		}
 	}
 }

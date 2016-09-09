@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import rx.Observable;
+
 /**
  * @see http://pastec.io/doc/oss/ 
  */
@@ -29,6 +31,15 @@ public interface IPastecService {
 	 * @return the result of the search
      * @see http://pastec.io/doc/oss/ 
 	 */
-	SearchResults searchIndexPostJson(InputStream input) throws IOException;
+	SearchResults searchIndexPostJson(InputStream inputstream) throws IOException;
+
+	/**
+	 * Add an image to the Pastec service.
+	 * The caller must subscribe to the observer to execute the call.
+	 * @param id id of the image
+	 * @param inputstream inputstream with the image
+	 * @return an observable with the ImageAdded response from Pastec
+	 */
+	Observable<ImageAdded> addImage(String id, InputStream inputstream);
 
 }
