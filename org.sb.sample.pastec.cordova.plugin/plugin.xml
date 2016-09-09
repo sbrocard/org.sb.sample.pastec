@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="org.sb.sample.pastec.cordova.plugin"
+        version="0.0.1">
+    <name>Pastec Plugin</name>
+    <description>A plugin gives access to image recognition via Pastec</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,plugin,pastec</keywords>
+    <repo>https://github.com/sbrocard/org.sb.sample.pastec.git</repo>
+
+    <js-module src="www/plugin.js" name="Pastec">
+        <clobbers target="window.ImageRecognition" />
+    </js-module>
+</plugin>

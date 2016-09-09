@@ -30,7 +30,8 @@ public class MyApplication extends ResourceConfig {
 
 			return imageContentData;
 		}
-	}; 
+	};
+	private Controller controller; 
 
 	public MyApplication() {
 		URI uri;
@@ -54,8 +55,8 @@ public class MyApplication extends ResourceConfig {
 			images.add(image);
 		}
 		imageReferentialService = new ImageReferentialService(images);
+		controller = new Controller(imageReferentialService, pastecService, imageService);
 		registerFactories();
-		Controller controller = new Controller(imageReferentialService, pastecService);
 		controller.init();
 	}
 
@@ -66,6 +67,7 @@ public class MyApplication extends ResourceConfig {
 				bind(pastecService).to(IPastecService.class);
 				bind(imageReferentialService).to(IImageReferentialService.class);
 				bind(imageService).to(IImageService.class);
+				bind(controller).to(Controller.class);
 			}
 		});
 	}

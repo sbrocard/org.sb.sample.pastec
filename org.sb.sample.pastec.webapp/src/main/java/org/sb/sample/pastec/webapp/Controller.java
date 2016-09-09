@@ -1,6 +1,8 @@
 package org.sb.sample.pastec.webapp;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,20 +10,30 @@ import javax.inject.Inject;
 import org.sb.sample.image.client.IImage;
 import org.sb.sample.image.client.IImageId;
 import org.sb.sample.image.client.IImageReferentialService;
+import org.sb.sample.image.client.IImageService;
+import org.sb.sample.image.client.ImageContentData;
 import org.sb.sample.image.client.impl.ImageReferentialService;
 import org.sb.sample.pastec.client.IPastecService;
+import org.sb.sample.pastec.client.SearchResults;
 
 import rx.Observable;
 
 public class Controller {
 
+	/**
+	 * TODO sb, 500 is totally arbitrary, we should study the eaxct meaning of that value.
+	 */
+	private static final int MINIMUM_SCORE = 500;
+
 	private final IImageReferentialService imageReferentialService;
 	private final IPastecService pastecService;
+	private final IImageService imageService;
 
 	@Inject
-	public Controller(IImageReferentialService imageReferentialService, IPastecService pastecService) {
+	public Controller(IImageReferentialService imageReferentialService, IPastecService pastecService, IImageService imageService) {
 		this.imageReferentialService = imageReferentialService;
 		this.pastecService = pastecService;
+		this.imageService = imageService;
 	}
 
 	/**
@@ -91,5 +103,34 @@ public class Controller {
 				observer.onCompleted();
 			});
 		});
+	}
+
+	/**
+	 * Search for information about the image in the input stream.
+	 * If the image is not recognized, it returns an empty  {@link ImageContentData}.
+	 * @param uploadedInputStream
+	 * @return an {@link ImageContentData} instance with the various information regarding the image. 
+	 */
+	public ImageContentData searchContentData(InputStream uploadedInputStream) {
+	    ImageContentData contentData = null;
+		try {
+		    SearchResults searchResults = pastecService.searchIndexPostJson(uploadedInputStream);
+		    System.out.println(searchResults);
+		    
+		    if (searchResults.getScores() != null && searchResults.getScores().size() > 0 && searchResults.getScores().get(0) > MINIMUM_SCORE) {
+			    String imageId = searchResults.getImage_ids().get(0);
+			    contentData = imageService.findContentData(imageId);
+		    }
+		} catch (IOException e) {
+			// TODO sb, handle the exception
+			e.printStackTrace();
+		}
+	    // No data, or no image, then create an empty result
+	    if (contentData == null) {
+	    	contentData = new ImageContentData();
+	    	contentData.lks = Collections.emptyList();
+	    }
+	    System.out.println(contentData);
+		return contentData;
 	}
 }

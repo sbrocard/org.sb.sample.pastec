@@ -17,9 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
-import org.sb.sample.image.client.IImageService;
 import org.sb.sample.image.client.ImageContentData;
-import org.sb.sample.pastec.client.IPastecService;
 import org.sb.sample.pastec.client.rest.ClientBuilderInstance;
 
 /**
@@ -29,7 +27,6 @@ import org.sb.sample.pastec.client.rest.ClientBuilderInstance;
  */
 public class PastecServiceRestTest extends JerseyTest {
 
-	private static final String MONA_LISA_JPG = "mona-lisa.jpg";
 	private static final String INDEX_SEARCHER = "pastec/content";
 
 	@Override
@@ -41,7 +38,7 @@ public class PastecServiceRestTest extends JerseyTest {
 	public void testSearchContentDataRestAccess() {
 		try {
 			URI uri = new URI(getBaseUri() + INDEX_SEARCHER);
-			InputStream inputstream = PastecServiceRestTest.class.getResourceAsStream(MONA_LISA_JPG);
+			InputStream inputstream = Utils.getMonaLisa();
 			ImageContentData contentData = searchContentDataImpl(uri, inputstream);
 			
 			assertEquals(1, contentData.lks.size());
@@ -50,37 +47,6 @@ public class PastecServiceRestTest extends JerseyTest {
 		}
 	}
 	
-	@Test
-	public void testSearchContentDataImageNotFound() throws IOException {
-		PastecServiceMock pastecService = new PastecServiceMock();
-		pastecService.findImage = false;
-		
-		callCheckEmpty(pastecService, new ImageServiceMock());
-	}
-
-	@Test
-	public void testSearchContentDataImageFoundDataNotFound() throws IOException {
-		PastecServiceMock pastecService = new PastecServiceMock();
-		pastecService.imageId = "2";
-		
-		callCheckEmpty(pastecService, new ImageServiceMock());
-	}
-
-	private void callCheckEmpty(IPastecService pastecService, IImageService imageService) throws IOException {
-		PastecServiceRest pastecServiceRest = new PastecServiceRest(pastecService , imageService);
-		InputStream inputstream = PastecServiceRestTest.class.getResourceAsStream(MONA_LISA_JPG);
-		ImageContentData contentData = pastecServiceRest.searchContentData(inputstream);
-		assertEquals("ImageContentData [lks=[]]", contentData.toString());
-	}
-	
-	@Test
-	public void testSearchContentDataImageFoundBadScore() throws IOException {
-		PastecServiceMock pastecService = new PastecServiceMock();
-		pastecService.score = 100;
-		
-		callCheckEmpty(pastecService, new ImageServiceMock());
-	}
-
 	private static <T> ImageContentData searchContentDataImpl(URI uri, T input) throws IOException {
 		assertNotNull(input);
 		final Client client = ClientBuilderInstance.INSTANCE.build();
@@ -95,7 +61,7 @@ public class PastecServiceRestTest extends JerseyTest {
 	public static void main(String[] args) {
 		try {
 			URI uri = new URI("http://localhost:8090/org.sb.sample.pastec.webapp/rest/" + INDEX_SEARCHER);
-			InputStream inputstream = PastecServiceRestTest.class.getResourceAsStream(MONA_LISA_JPG);
+			InputStream inputstream = Utils.getMonaLisa();
 			ImageContentData contentData = searchContentDataImpl(uri, inputstream);
 
 			System.out.println(contentData);

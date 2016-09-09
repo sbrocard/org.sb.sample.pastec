@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>org.sb.sample.pastec.cordova</title>
+</head>
+<body>
+
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+	<script type="text/javascript" charset="utf-8"
+		src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<script type="text/javascript">
+			$("#app-status-ul").append('<li>starting js</li>');
+
+            function onDeviceReady() {
+            	  if (navigator.notification) { // Override default HTML alert with native dialog
+            	      window.alert = function (message) {
+            			  navigator.notification.alert(
+            			      message,    // message
+            			      null,       // callback
+            			      "Notification", // title
+            			      'OK'        // buttonName
+            			  );
+            	      };
+            	  }
+            	$("#app-status-ul").append('<li>deviceready event received</li>');
+
+             	// !! Assumes variable fileURL contains a valid URL to a text file on the device,
+				var fileURL = "file:///android_asset/www/img/mona-lisa.jpg";
+            	var imageRecognition = new ImageRecognition();
+				var win = function (r) {
+				    $("#app-status-ul").append('<li>' + r + '</li>');
+				}
+				
+				var fail = function (error) {
+				    alert("An error has occurred: Code = " + error);
+				}
+
+			    $("#app-status-ul").append('<li>imageSearch</li>');
+			    imageRecognition.imageSearch(fileURL, win, fail);			
+			    $("#app-status-ul").append('<li>imageSearch done</li>');
+            }
+
+
+			document.addEventListener('deviceready', onDeviceReady, true);
+
+         </script>
+	<div id="home">
+		<div id="app-status-div">
+			<ul id="app-status-ul">
+				<li>Cordova Pastec Plugin Demo</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

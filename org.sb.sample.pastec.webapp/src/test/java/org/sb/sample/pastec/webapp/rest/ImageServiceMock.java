@@ -5,7 +5,7 @@ import java.util.Collections;
 import org.sb.sample.image.client.IImageService;
 import org.sb.sample.image.client.ImageContentData;
 
-final class ImageServiceMock implements IImageService {
+public final class ImageServiceMock implements IImageService {
 	@Override
 	public ImageContentData findContentData(String imageId) {
 		if (imageId.equals(Utils.IMAGEID_1)) {
